@@ -3287,28 +3287,21 @@ fn select_register(cx: &mut Context) {
 }
 
 macro_rules! mode_info {
-    // TODO: how to use one expr for both pat and expr?
     // TODO: how to use replaced function name as str at compile time?
     // TODO: extend to support multiple keys, but first solve the other two
-    {$name:literal, $cx:expr, $($key:expr => $func:expr; $funcs:literal),+,} => {
-        mode_info! {
-            $name, $cx,
-            $($key; $key => $func; $funcs,)+
-        }
-    };
-    {$name:literal, $cx:expr, $($key:expr; $keyp:pat => $func:expr; $funcs:literal),+,} => {
+    {$name:literal, $cx:expr, $($key:literal => $func:expr; $funcs:literal),+,} => {
         $cx.editor.autoinfo = Some(Info::key(
             $name,
             vec![
                 $(
-                (vec![$key], $funcs),
+                (vec![$crate::key!($key)], $funcs),
                 )+
             ],
         ));
         $cx.on_next_key(move |cx, event| {
             match event {
                 $(
-                $keyp => $func(cx),
+                $crate::key!($key) => $func(cx),
                 )+
                 _ => {}
             }
@@ -3319,16 +3312,16 @@ macro_rules! mode_info {
 fn space_mode(cx: &mut Context) {
     mode_info! {
         "space mode", cx,
-        key!('f'); key!('f') => file_picker; "file picker",
-        key!('b'); key!('b') => buffer_picker; "buffer picker",
-        key!('s'); key!('s') => symbol_picker; "symbol picker",
-        key!('w'); key!('w') => window_mode; "window mode",
-        key!('y'); key!('y') => yank_joined_to_clipboard; "yank joined to clipboard",
-        key!('Y'); key!('Y') => yank_main_selection_to_clipboard; "yank main selection to clipboard",
-        key!('p'); key!('p') => paste_clipboard_after; "paste clipboard after",
-        key!('P'); key!('P') => paste_clipboard_before; "paste clipboard before",
-        key!('R'); key!('R') => replace_selections_with_clipboard; "replace selections with clipboard",
-        key!(' '); key!(' ') => keep_primary_selection; "keep primary selection",
+        'f' => file_picker; "file picker",
+        'b' => buffer_picker; "buffer picker",
+        's' => symbol_picker; "symbol picker",
+        'w' => window_mode; "window mode",
+        'y' => yank_joined_to_clipboard; "yank joined to clipboard",
+        'Y' => yank_main_selection_to_clipboard; "yank main selection to clipboard",
+        'p' => paste_clipboard_after; "paste clipboard after",
+        'P' => paste_clipboard_before; "paste clipboard before",
+        'R' => replace_selections_with_clipboard; "replace selections with clipboard",
+        ' ' => keep_primary_selection; "keep primary selection",
     }
 }
 
