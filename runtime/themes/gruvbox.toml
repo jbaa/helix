@@ -2,54 +2,46 @@
 # The theme uses the gruvbox dark palette with standard contrast: github.com/morhetz/gruvbox
 
 "attribute" = "fg2"
-"keyword" = { fg = "red1" }
-"keyword.directive" = "red0"
-"namespace" = "yellow0"
+"comment" = "gray1"
+"constructor" = "fg2"
+"diagnostic" = { modifiers = ["underlined"] }
+"error" = "red0"
+"escape" = { fg = "fg2", modifiers = ["bold"] }
+"function" = "yellow0"
+"function.macro" = "purple0"
+"hint" = "gray0"
+"info" = "blue0"
+"keyword" = "red1"
+"label" = "aqua1"
+"module" = "red0"
+"namespace" = "orange0"
+"number" = "purple1"
+"operator" = "blue0"
+"property" = "fg2"
 "punctuation" = "fg4"
 "punctuation.delimiter" = "fg4"
-"operator" = "orange0"
 "special" = "purple0"
-"property" = "fg2"
-"variable" = "fg2"
+"string" = "green1"
+"type" = "yellow0"
+"type.builtin" = "yellow1"
+"ui.background" = { bg = "bg0" }
+# "ui.cursor.insert" = { bg = "purple1" } # doesn't seem to work
+"ui.cursor.primary" = { bg = "bg4" }
+"ui.cursor.match" = { bg = "bg3" }
+"ui.help" = { bg = "bg2", fg = "fg3" } # command help box
+"ui.linenr" = { fg = "bg2" } # line number on the right
+"ui.linenr.selected" = { fg = "bg4", modifiers = ["bold"] } # line number with a selection in it
+"ui.menu.selected" = { fg = "fg2", bg = "bg2" } # selections in command menu (after pressing ":")
+"ui.popup" = { fg = "fg2", bg = "bg1" } # the autocomplete menu and the documentation popup
+"ui.selection" = { bg = "bg1" } # selections inside the editor
+"ui.statusline" = { fg = "fg2", bg = "bg1" } # status line and command menu background
+"ui.statusline.inactive" = { fg = "fg3", bg = "bg2" } # status line of inactive windows
+"ui.text" = { fg = "fg1", bg = "bg0" } # normal text
+"ui.text.focus" = { fg = "fg2" } # the command menu, the text in the buffer and file menu
+"ui.window" = "bg1" # window borders
 "variable.builtin" = "fg3"
 "variable.parameter" = "fg2"
-"type" = "orange1"
-"type.builtin" = "orange0"
-"constructor" = "fg2"
-"function" = "green0"
-"function.macro" = "aqua1"
-"function.builtin" = "yellow1"
-"comment" = "gray1"
-"constant" = { fg = "fg2", modifiers = ["bold"] }
-"constant.builtin" = { fg = "fg1", modifiers = ["bold"] }
-"string" = "green1"
-"number" = "purple1"
-"escape" = { fg = "fg2", modifiers = ["bold"] }
-"label" = "aqua1"
-"module" = "yellow1"
-
-"warning" = "orange0"
-"error" = "red0"
-"info" = "purple0"
-"hint" = "blue0"
-
-"ui.background" = { bg = "bg0" }
-"ui.linenr" = { fg = "fg3" }
-"ui.linenr.selected" = { fg = "fg1", modifiers = ["bold"] }
-"ui.statusline" = { fg = "fg2", bg = "bg2" }
-"ui.statusline.inactive" = { fg = "fg3", bg = "bg4" }
-"ui.popup" = { bg = "bg1" }
-"ui.window" = { bg = "bg1" }
-"ui.help" = { bg = "bg1", fg = "fg1" }
-"ui.text" = { fg = "fg1" }
-"ui.text.focus" = { fg = "fg1", modifiers = ["bold"] }
-"ui.selection" = { bg = "bg3" }
-"ui.cursor.primary" = { bg = "bg3" }
-"ui.cursor.match" = { bg = "bg4" }
-"ui.menu" = { fg = "fg1" }
-"ui.menu.selected" = { fg = "fg3", bg = "bg3" }
-
-"diagnostic" = { modifiers = ["underlined"] }
+"warning" = "yellow0"
 
 [palette]
 bg0 = "#282828" # main background

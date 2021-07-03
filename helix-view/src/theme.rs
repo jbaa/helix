@@ -217,6 +217,11 @@ fn parse_modifier(value: &Value) -> Option<Modifier> {
     }
 }
 
+static USED_SCOPES: once_cell::sync::Lazy<std::sync::Mutex<std::collections::HashSet<String>>> =
+    once_cell::sync::Lazy::new(
+        || std::sync::Mutex::new(std::collections::HashSet::<String>::new()),
+    );
+
 impl Theme {
     pub fn get(&self, scope: &str) -> Style {
         self.try_get(scope)
@@ -224,6 +229,7 @@ impl Theme {
     }
 
     pub fn try_get(&self, scope: &str) -> Option<Style> {
+        USED_SCOPES.lock().unwrap().insert(scope.to_string());
         self.styles.get(scope).copied()
     }
 
@@ -234,6 +240,36 @@ impl Theme {
 
     pub fn find_scope_index(&self, scope: &str) -> Option<usize> {
         self.scopes().iter().position(|s| s == scope)
+    }
+
+    pub fn write_theme_scopes() {
+        use std::fs::File;
+        use std::io::prelude::*;
+
+        const PATH: &'static str = "/Users/kuba/tmp/hx_theme_scopes";
+        let file = File::open(PATH);
+        let mut file_used = match file {
+            Err(_) => std::collections::HashSet::<String>::new(),
+            Ok(mut file) => {
+                let mut contents = String::new();
+                file.read_to_string(&mut contents).unwrap();
+                contents
+                    .split("\n")
+                    .filter(|s| !s.is_empty())
+                    .map(|s| s.to_string())
+                    .collect()
+            }
+        };
+
+        let mem_used = USED_SCOPES.lock().unwrap();
+        file_used.extend(mem_used.iter().cloned());
+
+        let mut used = file_used.iter().cloned().collect::<Vec<String>>();
+        used.sort();
+        let used = used.join("\n");
+
+        let mut file = File::create(PATH).unwrap();
+        write!(&mut file, "{}", &used).unwrap();
     }
 }
 

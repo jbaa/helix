@@ -92,6 +92,13 @@ FLAGS:
 
     setup_logging(logpath, args.verbosity).context("failed to initialize logging")?;
 
+    tokio::spawn(async {
+        loop {
+            tokio::time::sleep(tokio::time::Duration::from_secs(10)).await;
+            helix_view::Theme::write_theme_scopes();
+        }
+    });
+
     // TODO: use the thread local executor to spawn the application task separately from the work pool
     let mut app = Application::new(args, config).context("unable to create new application")?;
     app.run().await.unwrap();
